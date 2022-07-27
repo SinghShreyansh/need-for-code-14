@@ -1,0 +1,229 @@
+extends ../layout/layout
+
+block dashboardSidebar
+     li.nav-item.active
+            a(href='/account/dashboard')
+              p Dashboard
+     li.nav-item
+            a(href='/account/petsInShelter')
+              p Pets in Shelter
+     li.nav-item
+            a(href='/account/addShelter')
+              p Add Shelter
+     li.nav-item
+            a(href='/account/sendtoShelter')
+              p Send Pets to Shelter
+     li.nav-item
+            a(href='/account/emergency')
+              p Emergency
+     li.nav-item
+            a(href='/account/donation')
+              p Donate
+
+block content
+    .main-panel
+      .content
+        .panel-header.bg-success-gradient.shadow-lg
+          .page-inner
+            #userIdDashboard(style='display:none') Shreyansh
+            .d-flex.align-items-left.align-items-md-center.flex-column.flex-md-row
+              div
+                h2.text-white.pb-2.fw-bold Dashboard
+            .row.row-card-no-pd.mt--2.shadow
+                      .col-sm-6.col-md-3
+                        .card.card-stats.card-round
+                          .card-body
+                            .row
+                              .col-12.col-stats
+                                .numbers
+                                  p.card-category Total Shelter In India
+                                  h4.card-title 150
+                      .col-sm-6.col-md-3
+                        .card.card-stats.card-round
+                          .card-body
+                            .row
+                              .col-12.col-stats
+                                .numbers
+                                  p.card-category Total Shelter in Mumbai
+                                  h4.card-title 45
+                      .col-sm-6.col-md-3
+                        .card.card-stats.card-round
+                          .card-body
+                            .row
+                              .col-12.col-stats
+                                .numbers
+                                  p.card-category Total pets available for adoption
+                                  h4.card-title 1850
+                      .col-sm-6.col-md-3
+                        .card.card-stats.card-round
+                          .card-body
+                            .row
+                              .col-12.col-stats
+                                .numbers
+                                  p.card-category Total Employees in shelter across India
+                                  h4.card-title 1.5k
+
+        .page-inner
+          .row.d-flex.justify-content-center
+                       #map(style='width: 80vw; height: 80vh;border-radius: 8px')
+
+
+
+block pageScript
+  script(src='/assets/js/core/jquery.3.2.1.min.js')
+  script(src='/assets/js/core/popper.min.js')
+  script(src='/assets/js/core/bootstrap.min.js')
+  // jQuery UI
+  script(src='/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')
+  script(src='/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')
+  // jQuery Scrollbar
+  script(src='/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')
+  // Atlantis JS
+  script(src='/assets/js/atlantis.min.js')
+  // Atlantis DEMO methods, don't include it in your project!
+  script(src='/assets/js/setting-demo2.js')
+
+
+  script.
+   $(document).ready(function() {
+        //- var user = document.getElementById('userIdDashboard').innerHTML.trim()
+        //- $.ajax({
+        //-       type: "POST",
+        //-       url: "/account/getscore",
+        //-       data:{userId : user},
+        //-       success: function(result) {
+        //-           if(result.type==='success'){
+        //-             $('#highestPoint').html(result.highestscore)
+        //-             $('#numberOfExamGiven').html(result.totalattempt)
+        //-           }
+        //-  }});
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2hyZXlhbnNoMDMyMiIsImEiOiJja3prdXd5ZHM0enEzMm9uazFncXFlMjBzIn0.aUHWQ9xpWIQIiv2_j3cueQ';
+
+        navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
+            enableHighAccuracy: true
+          })
+
+          function successLocation(position) {
+            setupMap([position.coords.longitude, position.coords.latitude])
+          }
+
+          function errorLocation() {
+            setupMap([-2.24, 53.48])
+          }
+
+          function setupMap(center) {
+            const map = new mapboxgl.Map({
+              container: "map",
+              style: "mapbox://styles/mapbox/streets-v11",
+              center: center,
+              zoom: 12
+            })
+
+            const geojson = {
+              type: 'FeatureCollection',
+              features: [
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [72.8359,19.0645]
+                  },
+                  properties: {
+                    title: 'Thadomal Shahani Engineering College',
+                    description: 'point 1',
+                    image: '../../assets/img/cat1.jpeg'
+                  }
+                },
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [72.8890, 19.0453]
+                  },
+                  properties: {
+                    title: 'Vivekanand Education Society'+'s Institute Of Technology (VESIT)',
+                    description: 'point 2',
+                    image: '../../assets/img/cat2.jpeg'
+                  }
+                },
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [72.860575, 19.044200]
+                  },
+                  properties: {
+                    title: 'Petbff',
+                    description: 'point P',
+                    image: '../../assets/img/cat3.jpeg'
+                  }
+                },
+                         {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [72.867281, 19.135245]
+                  },
+                  properties: {
+                    title: 'Animal rescue and shelter foundation',
+                    description: 'point A',
+                    image: '../../assets/img/cat4.jpeg'
+                  }
+                },
+                         {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [73.109778,19.104306]
+                  },
+                  properties: {
+                    title: 'Apna home animal shelter',
+                    description: 'point AH',
+                    image: '../../assets/img/dog1.jpeg'
+                  }
+                },
+                         {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [72.8776559, 19.0759837]
+                  },
+                  properties: {
+                    title: 'Nine lives adoption',
+                    description: 'point NL',
+                    image: '../../assets/img/dog2.jpeg'
+                  }
+                }
+              ]
+            };
+
+            // add markers to map
+              for (const feature of geojson.features) {
+                // create a HTML element for each feature
+                const el = document.createElement('div');
+                el.className = 'marker';
+                const ImageName = feature.properties.image
+                const Title = feature.properties.title
+                const Description = feature.properties.description
+                console.log(ImageName)
+                console.log(Title)
+                console.log(Description)
+                // make a marker for each feature and add to the map
+                new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).setPopup(
+                  new mapboxgl.Popup({ offset: 25 }) // add popups
+                    .setHTML(
+                      "<h3>"+Title+"</h3><p>"+Description+"</p><img src="+ImageName+` style="width:60%"></img>`
+                    )).addTo(map);
+              }
+
+            const nav = new mapboxgl.NavigationControl()
+            map.addControl(nav)
+
+            var directions = new MapboxDirections({
+              accessToken: mapboxgl.accessToken
+            })
+
+            map.addControl(directions, "top-left")
+          }
+
+   });

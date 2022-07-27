@@ -1,0 +1,112 @@
+extends ../layout/layout
+
+block dashboardSidebar
+     li.nav-item
+            a(href='/account/dashboard')
+              p Dashboard
+     li.nav-item
+            a(href='/account/petsInShelter')
+              p Pets in Shelter
+     li.nav-item.active
+            a(href='/account/addShelter')
+              p Add Shelter
+     li.nav-item
+            a(href='/account/sendtoShelter')
+              p Send Pets to Shelter
+     li.nav-item
+            a(href='/account/emergency')
+              p Emergency
+     li.nav-item
+            a(href='/account/donation')
+              p Donate
+
+block content
+    .main-panel
+      .container(style="margin-top:0")
+          .page-inner
+            .page-header
+              h4.page-title Add Shelter Details
+              ul.breadcrumbs
+                li.nav-home
+                  a(href='forms.html#')
+                  i.flaticon-home
+            .row
+              .col-md-8
+                .card
+                  .card-header
+                    .card-title Fill Your Shelter🏠 Data
+                  .card-body
+                    .row
+                      .col-md-10.col-lg-10
+                        form(action="/account/addShelter" method="POST")
+                                  .form-group(style="display:none")
+                                      label(for='addProjectname') userId
+                                      input#petFormOwnerId.form-control(type='text' name='userId' placeholder='Enter pet name' autocomplete="off" value=`${session.user._id}`)
+                                  .form-group
+                                      label(for='addProjectname') Shelter Name
+                                      input#addProjectname.form-control(type='text' name='name' placeholder='xyz' required='' autocomplete="off")
+                                  .form-group
+                                      label(for='addProjectname') City name
+                                      input#addProjectname.form-control(type='text' name='city_name' placeholder='Mumbai, Maharashtra, India' required='' autocomplete="off")
+                                  .form-group
+                                      label(for='addProjectname') Full Address
+                                      input#addProjectname.form-control(type='text' name='address' placeholder='xyz , xyz nagar , Mumbai, Maharashtra, India' required='' autocomplete="off")
+                                  .form-group
+                                      label(for='addProjectname') Mobile Number
+                                      input#addProjectname.form-control(type='tel' name='phone' placeholder='XXXXXXXXXX' required='' pattern="[0-9]{10}" autocomplete="off")
+                                  .form-group
+                                      label(for='addProjectname') How many pets are their in your shelter ?
+                                      input#addProjectname.form-control(type='number' name='total_pets' placeholder='150' required='' autocomplete="off")
+                                  .form-group
+                                      label(for='addProjectname') Total employees in shelter
+                                      input#addProjectname.form-control(type='number' name='total_employee' placeholder='150' required='' autocomplete="off")
+
+                                  button.btn.btn-primary.btn-block.ml-4.mt-4(type="submit") Submit
+              .col-md-4.my-auto
+                  ul.timeline
+                    li.timeline-inverted
+                      .timeline-badge.danger
+                        i.flaticon-alarm-1
+                      .timeline-panel
+                        .timeline-heading
+                          h4.timeline-title Enter Shelter Details
+                        .timeline-body
+                          p
+                            | It is important to fill shelter details
+                    li
+                      .timeline-badge
+                        i.flaticon-message
+                      .timeline-panel
+                        .timeline-heading
+                          h4.timeline-title Submit Form
+                        .timeline-body
+                          p
+                            | By submitting , this shelter will be included in our shelter
+
+
+
+block pageScript
+  script(src='/assets/js/core/jquery.3.2.1.min.js')
+  script(src='/assets/js/core/popper.min.js')
+  script(src='/assets/js/core/bootstrap.min.js')
+  // jQuery UI
+  script(src='/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')
+  script(src='/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')
+  // jQuery Scrollbar
+  script(src='/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')
+  // Datatables
+  script(src='/assets/js/plugin/datatables/datatables.min.js')
+  // Atlantis JS
+  script(src='/assets/js/atlantis.min.js')
+  // SweetAlert
+  script(src='https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js')
+
+  // Atlantis DEMO methods, don't include it in your project!
+  script(src='/assets/js/setting-demo2.js')
+  script.
+      $(document).ready(function() {
+
+
+        const id =$('#petFormOwnerId').html();
+       })

@@ -1,0 +1,142 @@
+extends ../layout/layout
+
+block dashboardSidebar
+     li.nav-item
+            a(href='/account/dashboard')
+              p Dashboard
+     li.nav-item.active
+            a(href='/account/petsInShelter')
+              p Pets in Shelter
+     li.nav-item
+            a(href='/account/addShelter')
+              p Add Shelter
+     li.nav-item
+            a(href='/account/sendtoShelter')
+              p Send Pets to Shelter
+     li.nav-item
+            a(href='/account/emergency')
+              p Emergency
+     li.nav-item
+            a(href='/account/donation')
+              p Donate
+
+block content
+     .main-panel
+        .container(style="margin-top:0")
+          .page-inner
+            h4.page-title User Profile
+            .row
+              .col-md-8
+                .card.card-with-nav
+                  .card-header
+                    .row.row-nav-line
+                      ul.nav.nav-tabs.nav-line.nav-color-secondary.w-100.pl-3(role='tablist')
+                        li.nav-item.submenu
+                          a.nav-link.active.show(data-toggle='tab' href='userprofile.html#home' role='tab' aria-selected='true') Timeline
+                        li.nav-item.submenu
+                          a.nav-link(data-toggle='tab' href='userprofile.html#profile' role='tab' aria-selected='false') Profile
+                        li.nav-item.submenu
+                          a.nav-link(data-toggle='tab' href='userprofile.html#settings' role='tab' aria-selected='false') Settings
+                  .card-body
+                    .row.mt-3
+                      .col-md-6
+                        .form-group.form-group-default
+                          label Name
+                          input.form-control(type='text' name='name' placeholder='Name' value='Hizrian')
+                      .col-md-6
+                        .form-group.form-group-default
+                          label Email
+                          input.form-control(type='email' name='email' placeholder='Name' value='hello@example.com')
+                    .row.mt-3
+                      .col-md-4
+                        .form-group.form-group-default
+                          label Birth Date
+                          input#datepicker.form-control(type='text' name='datepicker' value='03/21/1998' placeholder='Birth Date')
+                      .col-md-4
+                        .form-group.form-group-default
+                          label Gender
+                          select#gender.form-control
+                            option Male
+                            option Female
+                      .col-md-4
+                        .form-group.form-group-default
+                          label Phone
+                          input.form-control(type='text' value='+62008765678' name='phone' placeholder='Phone')
+                    .row.mt-3
+                      .col-md-12
+                        .form-group.form-group-default
+                          label Address
+                          input.form-control(type='text' value='st Merdeka Putih, Jakarta Indonesia' name='address' placeholder='Address')
+                    .row.mt-3.mb-1
+                      .col-md-12
+                        .form-group.form-group-default
+                          label About Me
+                          textarea.form-control(name='about' placeholder='About Me' rows='3') A man who hates loneliness
+                    .text-right.mt-3.mb-3
+                      button.btn.btn-success Save
+                      button.btn.btn-danger Reset
+              .col-md-4
+                .card.card-profile
+                  .card-header(style="background-image: url('../assets/img/blogpost.jpg')")
+                    .profile-picture
+                      .avatar.avatar-xl
+                        img.avatar-img.rounded-circle(src='../assets/img/profile.jpg' alt='...')
+                  .card-body
+                    .user-profile.text-center
+                      .name Hizrian, 19
+                      .job Frontend Developer
+                      .desc A man who hates loneliness
+                      .social-media
+                        a.btn.btn-info.btn-twitter.btn-sm.btn-link(href='userprofile.html#')
+                          span.btn-label.just-icon
+                            i.flaticon-twitter
+                        a.btn.btn-danger.btn-sm.btn-link(rel='publisher' href='userprofile.html#')
+                          span.btn-label.just-icon
+                            i.flaticon-google-plus
+                        a.btn.btn-primary.btn-sm.btn-link(rel='publisher' href='userprofile.html#')
+                          span.btn-label.just-icon
+                            i.flaticon-facebook
+                        a.btn.btn-danger.btn-sm.btn-link(rel='publisher' href='userprofile.html#')
+                          span.btn-label.just-icon
+                            i.flaticon-dribbble
+                      .view-profile
+                        a.btn.btn-secondary.btn-block(href='userprofile.html#') View Full Profile
+                  .card-footer
+                    .row.user-stats.text-center
+                      .col
+                        .number 125
+                        .title Post
+                      .col
+                        .number 25K
+                        .title Followers
+                      .col
+                        .number 134
+                        .title Following
+
+
+block pageScript
+  script(src='/assets/js/core/jquery.3.2.1.min.js')
+  script(src='/assets/js/core/popper.min.js')
+  script(src='/assets/js/core/bootstrap.min.js')
+  // jQuery UI
+  script(src='/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')
+  script(src='/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')
+  // jQuery Scrollbar
+  script(src='/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')
+  // Datatables
+  script(src='/assets/js/plugin/datatables/datatables.min.js')
+  // Atlantis JS
+  script(src='/assets/js/atlantis.min.js')
+  // SweetAlert
+  script(src='https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js')
+
+  // Atlantis DEMO methods, don't include it in your project!
+  script(src='/assets/js/setting-demo2.js')
+  script.
+      //== Class Initialization
+      $(document).ready(function() {
+
+
+
+       });

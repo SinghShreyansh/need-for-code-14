@@ -1,0 +1,154 @@
+extends ../layout/layout
+
+block dashboardSidebar
+     li.nav-item
+            a(href='/account/dashboard')
+              p Dashboard
+     li.nav-item
+            a(href='/account/petsInShelter')
+              p Pets in Shelter
+     li.nav-item
+            a(href='/account/addShelter')
+              p Add Shelter
+     li.nav-item.active
+            a(href='/account/sendtoShelter')
+              p Send Pets to Shelter
+     li.nav-item
+            a(href='/account/emergency')
+              p Emergency
+     li.nav-item
+            a(href='/account/donation')
+              p Donate
+
+block content
+    .main-panel
+      .container(style="margin-top:0")
+          .page-inner
+            .page-header
+              h4.page-title Add Details
+              ul.breadcrumbs
+                li.nav-home
+                  a(href='forms.html#')
+                  i.flaticon-home
+            .row
+              .col-md-8
+                .card
+                  .card-header
+                    .card-title Fill Your Pet🐶 Data
+                  .card-body
+                    .row
+                      .col-md-10.col-lg-10
+                        form(action="/account/petForm" method="POST" enctype="multipart/form-data")
+                                  .form-group(style="display:none")
+                                      label(for='addProjectname') OwnerId
+                                      input#petFormOwnerId.form-control(type='text' name='ownerId' placeholder='Enter pet name' autocomplete="off" value=`${ownerId}`)
+                                  .form-group(style="display:none")
+                                      label(for='addProjectname') userId
+                                      input#petFormOwnerId.form-control(type='text' name='userId' placeholder='Enter pet name' autocomplete="off" value=`${session.user._id}`)
+                                  .form-group
+                                      label(for='addProjectname') Pet Name (if any)
+                                      input#addProjectname.form-control(type='text' name='name' placeholder='Enter pet name' autocomplete="off")
+                                  .form-group
+                                      label(for='addProjectname') Pet Common Name
+                                      input#addProjectname.form-control(type='text' name='common_name' placeholder='like cat , dog , rabbit , etc' required='' autocomplete="off")
+                                  .form-check
+                                      label Gender
+                                      br
+                                      label.form-radio-label
+                                        input.form-radio-input(type='radio' name='gender' value='male' checked='')
+                                        span.form-radio-sign Male
+                                      label.form-radio-label.ml-3
+                                        input.form-radio-input(type='radio' name='gender' value='female')
+                                        span.form-radio-sign Female
+                                  .form-check
+                                      label Type
+                                      br
+                                      label.form-radio-label
+                                        input.form-radio-input(type='radio' name='type' value='street' checked='')
+                                        span.form-radio-sign Street
+                                      label.form-radio-label.ml-3
+                                        input.form-radio-input(type='radio' name='type' value='adopted')
+                                        span.form-radio-sign Adopted
+                                  .form-check
+                                      label Vaccination
+                                      br
+                                      label.form-radio-label
+                                        input.form-radio-input(type='radio' name='vaccination' value='yes' checked='')
+                                        span.form-radio-sign Yes
+                                      label.form-radio-label.ml-3
+                                        input.form-radio-input(type='radio' name='vaccination' value='no')
+                                        span.form-radio-sign No
+                                      label.form-radio-label.ml-3
+                                        input.form-radio-input(type='radio' name='vaccination' value=`dont know`)
+                                        span.form-radio-sign Don't know
+                                  .form-group
+                                      label Pet Picture :
+                                      .input-file.input-file-image(style='margin-left:30%')
+                                            img.img-upload-preview.img-circle(width='100' height='100' src='' alt='preview')
+                                            input#uploadImg.form-control.form-control-file(type='file' name='petImage' accept='image/*' required='')
+                                            label.label-input-file.btn.btn-primary(for='uploadImg') Upload a Image
+                                  .form-group
+                                      label(for='addProjectname') Approx Age (optional)
+                                      input#addProjectname.form-control(type='number' name='age' placeholder='Enter approx age' autocomplete="off")
+                                  button.btn.btn-primary.btn-block.ml-4.mt-4(type="submit") Next
+              .col-md-4
+                  ul.timeline
+                    li
+                      .timeline-badge
+                        i.flaticon-error
+                      .timeline-panel
+                        .timeline-heading
+                          h4.timeline-title Enter Owner's Details
+                          p
+                            small.text-muted
+                              i.flaticon-message
+                              |  First step
+                        .timeline-body
+                          p
+                            | It is important to fill owner's details and photo ID
+                    li.timeline-inverted
+                      .timeline-badge.danger
+                        i.flaticon-alarm-1
+                      .timeline-panel
+                        .timeline-heading
+                          h4.timeline-title Enter Pet's Details
+                        .timeline-body
+                          p
+                            | It is important to fill pet's details with photo ID
+                    li
+                      .timeline-badge
+                        i.flaticon-message
+                      .timeline-panel
+                        .timeline-heading
+                          h4.timeline-title Submitted Form
+                        .timeline-body
+                          p
+                            | After submission successfully , nearby shelter will contact you
+
+
+
+block pageScript
+  script(src='/assets/js/core/jquery.3.2.1.min.js')
+  script(src='/assets/js/core/popper.min.js')
+  script(src='/assets/js/core/bootstrap.min.js')
+  // jQuery UI
+  script(src='/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')
+  script(src='/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')
+  // jQuery Scrollbar
+  script(src='/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')
+  // Datatables
+  script(src='/assets/js/plugin/datatables/datatables.min.js')
+  // Atlantis JS
+  script(src='/assets/js/atlantis.min.js')
+  // SweetAlert
+  script(src='https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js')
+
+  // Atlantis DEMO methods, don't include it in your project!
+  script(src='/assets/js/setting-demo2.js')
+  script.
+      $(document).ready(function() {
+
+
+        const id =$('#petFormOwnerId').html();
+       })

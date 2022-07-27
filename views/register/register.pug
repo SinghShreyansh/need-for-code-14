@@ -1,0 +1,136 @@
+doctype html
+head
+  meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  title Components - Atlantis Bootstrap 4 Admin Dashboard
+  meta(content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport')
+  link(rel='icon' href='/assets/img/icon.ico' type='image/x-icon')
+  // Fonts and icons
+  script(src='/assets/js/plugin/webfont/webfont.min.js')
+  script.
+    WebFont.load({
+    google: {"families":["Lato:300,400,700,900"]},
+    custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css']},
+    active: function() {
+    sessionStorage.fonts = true;
+    }
+    });
+  // CSS Files
+  link(rel='stylesheet' href='/assets/css/bootstrap.min.css')
+  link(rel='stylesheet' href='/assets/css/atlantis.css')
+  // CSS Just for demo purpose, don't include it in your project
+  link(rel='stylesheet' href='/assets/css/demo.css')
+.wrapper
+  .row
+    .wizard-container.wizard-round.col-md-9
+      .wizard-header.text-center
+        h3.wizard-title
+          b Register
+          |  New Account
+        small This information will let us know more about you.
+      form(novalidate='novalidate')
+        .wizard-body
+          .row
+            ul.wizard-menu.nav.nav-pills.nav-primary
+              li.step(style='width: 33.3333%;')
+                a.nav-link.active(href='formwizard.html#about' data-toggle='tab' aria-expanded='true')
+                  i.fa.fa-user.mr-0
+                  |  About
+          .tab-content
+            #about.tab-pane.active
+              .row
+                .col-md-12
+                  h4.info-text Tell us who you are.
+                .col-md-6
+                  .form-group
+                    label First Name :
+                    input.form-control(name='firstname' type='text' required='')
+                  .form-group
+                    label About :
+                    textarea.form-control(name='about' rows='5' required='')
+                .col-md-6
+                  .form-group
+                    label Last Name :
+                    input.form-control(name='lastname' type='text' required='')
+                  .form-group
+                    label Picture :
+                    .input-file.input-file-image
+                      img.img-upload-preview.img-circle(width='100' height='100' src='http://placehold.it/100x100' alt='preview')
+                      input#uploadImg.form-control.form-control-file(type='file' name='uploadImg' accept='image/*' required='')
+                      label.label-input-file.btn.btn-primary(for='uploadImg') Upload a Image
+            #account.tab-pane
+              h4.info-text Set up your account
+              .row
+                .col-md-8.ml-auto.mr-auto
+                  .form-group
+                    label Email :
+                    input.form-control(type='email' name='email' required='')
+                  .form-group
+                    label Password :
+                    input.form-control(type='password' name='password' required='')
+                  .form-group
+                    label Confirm Password :
+                    input.form-control(type='password' name='confirmpassword' required='')
+            #address.tab-pane
+              h4.info-text Tell us where you live.
+              .row
+                .col-sm-8.ml-auto.mr-auto
+                  .form-group
+                    label Country :
+                    select.form-control(name='country' required='')
+                      option(value='') &nbsp;
+                      option(value='id') Indonesia
+                      option(value='my') Malaysia
+                      option(value='th') Thailand
+                      option(value='sg') Singapore
+                  .form-group
+                    label Address
+                    textarea.form-control(name='address' rows='3' required='')
+        .wizard-action
+          .pull-left
+            input.btn.btn-previous.btn-fill.btn-black.disabled(type='button' name='previous' value='Previous')
+          .pull-right
+            input.btn.btn-next.btn-danger(type='button' name='next' value='Next')
+            input.btn.btn-finish.btn-danger(type='button' name='finish' value='Finish' style='display: none;')
+          .clearfix
+// Core JS Files
+script(src='/assets/js/core/jquery.3.2.1.min.js')
+script(src='/assets/js/core/popper.min.js')
+script(src='/assets/js/core/bootstrap.min.js')
+// jQuery UI
+script(src='/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')
+script(src='/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')
+// Moment JS
+script(src='/assets/js/plugin/moment/moment.min.js')
+// Bootstrap Toggle
+script(src='/assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js')
+// jQuery Scrollbar
+script(src='/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')
+// DateTimePicker
+script(src='/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js')
+// Select2
+script(src='/assets/js/plugin/select2/select2.full.min.js')
+// Bootstrap Tagsinput
+script(src='/assets/js/plugin/bootstrap-tagsinput/bootstrap-tagsinput.min.js')
+// Atlantis JS
+script(src='/assets/js/atlantis.min.js')
+// Atlantis DEMO methods, don't include it in your project!
+script(src='/assets/js/setting-demo2.js')
+script.
+
+  $('#tagsinput').tagsinput({
+  tagClass: 'badge-info'
+  });
+  $( function() {
+  $( "#slider" ).slider({
+  range: "min",
+  max: 100,
+  value: 40,
+  });
+  $( "#slider-range" ).slider({
+  range: true,
+  min: 0,
+  max: 500,
+  values: [ 75, 300 ]
+  });
+  } );

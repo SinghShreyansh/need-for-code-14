@@ -1,0 +1,174 @@
+extends ../layout/layout
+
+block dashboardSidebar
+     li.nav-item
+            a(href='/account/dashboard')
+              p Dashboard
+     li.nav-item.active
+            a(href='/account/petsInShelter')
+              p Pets in Shelter
+     li.nav-item
+            a(href='/account/addShelter')
+              p Add Shelter
+     li.nav-item
+            a(href='/account/sendtoShelter')
+              p Send Pets to Shelter
+     li.nav-item
+            a(href='/account/emergency')
+              p Emergency
+     li.nav-item
+            a(href='/account/donation')
+              p Donate
+
+block content
+     .main-panel
+      .content
+        .page-inner
+          .page-header
+            h4.page-title Pets in Shelter
+            ul.breadcrumbs
+              li.nav-home
+                a(href='datatables.html#')
+                  i.flaticon-home
+          //- .row
+          //-   .col-md-12
+          //-     .card
+          //-       .card-header
+          //-         h4.card-title All Users
+          //-       #session.user
+          //-        if session.user.role==1
+          //-         .card-body
+          //-           .table-responsive
+          //-             table#basic-datatable.display.table.table-striped.table-hover
+          //-               thead
+                        //-   tr
+                        //-     th Name
+                        //-     th Email
+                        //-     th Role
+                        //-     th Status
+                        //-     th Start date
+                        //-     th Action
+                        //- tfoot
+                        //-   tr
+                        //-     th Name
+                        //-     th Email
+                        //-     th Role
+                        //-     th Status
+                        //-     th Start date
+                        //-     th Action
+                        //- tbody
+                        //-   each data in userData
+                        //-     tr
+                        //-       td #{data.name}
+                        //-       td #{data.email}
+                        //-       td #{data.role===1?"admin":"employee"}
+                        //-       td #{data.status}
+                        //-       td #{new Date(Date.parse(data.createdAt)).toLocaleString().slice(0,9)}
+                              //- td
+                              //-   .d-flex.flex-row.justify-content-center.align-items-center
+                              //-       a.btn.btn-link.btn-primary.btn-lg(type='button' data-toggle='tooltip' title='' onclick=`${session.user.role}==1?UserViewCall(this.getAttribute("value")):Alert()` data-original-title='View Password' value=data._id)
+                              //-         i.fa.fa-eye
+                              //-       a.btn.btn-link.btn-danger(type='button' data-toggle='tooltip' href=`/account/getedituser?id=${data._id}` title='' data-original-title='Edit' value=data._id)
+                              //-         i.fa.fa-edit
+
+
+          .row
+            .col-md-8
+              .card
+                .card-header
+                  h4.card-title All Pets
+                #session.user
+                  .card-body
+                    .table-responsive
+                      table#basic-datatable.display.table.table-striped.table-hover
+                        thead
+                          tr
+                            th Common Name
+                            th Gender
+                            th Type
+                            th Vaccination
+
+                        tfoot
+                          tr
+                            th Common Name
+                            th Gender
+                            th Type
+                            th Vaccination
+                        tbody
+                            tr
+                              td Shreyansh
+                              td 12@gmail.com
+                              td Student
+                              td Active
+                              //- td
+                              //-   .d-flex.flex-row.justify-content-center.align-items-center
+                              //-       a.btn.btn-link.btn-primary.btn-lg(type='button' data-toggle='tooltip' title='' onclick=`${session.user.role}==1?UserViewCall(this.getAttribute("value")):Alert()` data-original-title='View Password' value=data._id)
+                              //-         i.fa.fa-eye
+                              //-       a.btn.btn-link.btn-danger(type='button' data-toggle='tooltip' href=`/account/getedituser?id=${data._id}` title='' data-original-title='Edit' value=data._id)
+                              //-         i.fa.fa-edit
+            .col-md-4
+              .card.card-profile
+                .card-header(style="background-image: url('../assets/img/blogpost.jpg')")
+                  .profile-picture
+                    .avatar.avatar-xl
+                      img.avatar-img.rounded-circle(src='../assets/img/profile.jpg' alt='...')
+                .card-body
+                  .user-profile.text-center
+                    .name Hizrian, 19
+                    .job Frontend Developer
+                    .desc A man who hates loneliness
+                    .social-media
+                      a.btn.btn-info.btn-twitter.btn-sm.btn-link(href='userprofile.html#')
+                        span.btn-label.just-icon
+                          i.flaticon-twitter
+                      a.btn.btn-danger.btn-sm.btn-link(rel='publisher' href='userprofile.html#')
+                        span.btn-label.just-icon
+                          i.flaticon-google-plus
+                      a.btn.btn-primary.btn-sm.btn-link(rel='publisher' href='userprofile.html#')
+                        span.btn-label.just-icon
+                          i.flaticon-facebook
+                      a.btn.btn-danger.btn-sm.btn-link(rel='publisher' href='userprofile.html#')
+                        span.btn-label.just-icon
+                          i.flaticon-dribbble
+                    .view-profile
+                      a.btn.btn-secondary.btn-block(href='/account/adoptfromshelter') Adopt Him
+                .card-footer
+                  .row.user-stats.text-center
+                    .col
+                      .number 125
+                      .title Post
+                    .col
+                      .number 25K
+                      .title Followers
+                    .col
+                      .number 134
+                      .title Following
+
+
+block pageScript
+  script(src='/assets/js/core/jquery.3.2.1.min.js')
+  script(src='/assets/js/core/popper.min.js')
+  script(src='/assets/js/core/bootstrap.min.js')
+  // jQuery UI
+  script(src='/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')
+  script(src='/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')
+  // jQuery Scrollbar
+  script(src='/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')
+  // Datatables
+  script(src='/assets/js/plugin/datatables/datatables.min.js')
+  // Atlantis JS
+  script(src='/assets/js/atlantis.min.js')
+  // SweetAlert
+  script(src='https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js')
+
+  // Atlantis DEMO methods, don't include it in your project!
+  script(src='/assets/js/setting-demo2.js')
+  script.
+      //== Class Initialization
+      $(document).ready(function() {
+          $('#basic-datatable').DataTable({
+          });
+
+
+       });

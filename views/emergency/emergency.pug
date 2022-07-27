@@ -1,0 +1,156 @@
+extends ../layout/layout
+
+block dashboardSidebar
+     li.nav-item
+            a(href='/account/dashboard')
+              p Dashboard
+     li.nav-item
+            a(href='/account/petsInShelter')
+              p Pets in Shelter
+     li.nav-item
+            a(href='/account/addShelter')
+              p Add Shelter
+     li.nav-item
+            a(href='/account/sendtoShelter')
+              p Send Pets to Shelter
+     li.nav-item.active
+            a(href='/account/emergency')
+              p Emergency
+     li.nav-item
+            a(href='/account/donation')
+              p Donate
+
+block content
+    .main-panel
+      .container(style="margin-top:0")
+          .page-inner
+            .page-header
+              h4.page-title Emergency
+              ul.breadcrumbs
+                li.nav-home
+                  a(href='forms.html#')
+                  i.flaticon-home
+
+            .row
+              .col-md-8
+                .card
+                  .card-header
+                    .card-title Get Nearby Shelter Detail
+                  .card-body
+                      p
+                        button.btn.btn-success(onclick='getLocation()') Get My Location
+                      form.addUserForm(action="/account/successForm" method="GET")
+                                  .form-group
+                                      label(for='demoAddress') Your location :
+                                      input#demoAddress.form-control(type='text' name='name' placeholder='Enter your address' autocomplete="off")
+                      button.btn.btn-primary.mx-2(onclick=`getNearbyShelter()`) Get Nearby Shelter
+                      table#shelterEmergencydatatable.display.table.table-striped.table-hover
+
+                              thead
+                                  tr
+                                    td Shelter Name
+                                    td Address
+                                    td City Name
+                                    td Phone number
+
+              .col-md-4
+                  ul.timeline
+                    li
+                      .timeline-badge
+                        i.flaticon-error
+                      .timeline-panel
+                        .timeline-heading
+                          h4.timeline-title Enter Your Location
+                          p
+                            small.text-muted
+                              i.flaticon-message
+                              |  First step
+                        .timeline-body
+                          p
+                            | It's important to get your perfect location or atleast pincode
+                    li.timeline-inverted
+                      .timeline-badge
+                        i.flaticon-alarm-1
+                      .timeline-panel
+                        .timeline-heading
+                          h4.timeline-title Get Nearby Shelter's Details
+                        .timeline-body
+                          p
+                            | Get Shelter's mobile number and address
+
+
+
+block pageScript
+  script(src='/assets/js/core/jquery.3.2.1.min.js')
+  script(src='/assets/js/core/popper.min.js')
+  script(src='/assets/js/core/bootstrap.min.js')
+  // jQuery UI
+  script(src='/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')
+  script(src='/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')
+  // jQuery Scrollbar
+  script(src='/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')
+  // Datatables
+  script(src='/assets/js/plugin/datatables/datatables.min.js')
+  // Atlantis JS
+  script(src='/assets/js/atlantis.min.js')
+  // SweetAlert
+  script(src='https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js')
+  script(type='text/javascript' src='https://maps.google.com/maps/api/js?sensor=false')
+
+  // Atlantis DEMO methods, don't include it in your project!
+  script(src='/assets/js/setting-demo2.js')
+  script.
+
+       var longiTude ;
+          var latiTude ;
+          var city_name ;
+      //== Class Initialization
+      $(document).ready(function() {
+
+       });
+
+        function getAddress(){
+          console.log(typeof longiTude)
+          console.log(longiTude.toString())
+            $.ajax({
+                    type: "GET",
+                    url: "https://api.mapbox.com/geocoding/v5/mapbox.places/"+longiTude.toString()+","+latiTude.toString()+".json?types=place&access_token=pk.eyJ1Ijoic2hyZXlhbnNoMDMyMiIsImEiOiJja3prdXd5ZHM0enEzMm9uazFncXFlMjBzIn0.aUHWQ9xpWIQIiv2_j3cueQ",
+                    success: function(result) {
+                       console.log(result.features[0].place_name)
+                       $('#demoAddress').val(result.features[0].place_name.toString())
+                       city_name = result.features[0].place_name.toString();
+              }});
+          }
+
+       function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+            console.log("Geolocation is not supported by this browser.");
+          }
+        }
+       function showPosition(position) {
+        console.log(position.coords.longitude)
+        longiTude = position.coords.longitude;
+        console.log(position.coords.latitude)
+        latiTude = position.coords.latitude;
+        getAddress()
+      }
+
+      function getNearbyShelter(){
+        $.ajax({
+                    type: "POST",
+                    url: "/account/getNearbyShelter",
+                    data:{city_name : city_name},
+                    success: function(result) {
+                       console.log(result)
+                       var tableString = "<thead><tr><th>Shelter Name</th> <th>Address</th><th>City Name</th><th>Phone Number</th></tr></thead><tbody>";
+                       result.message.map(data=>{
+                        tableString = tableString + "<tr><td>"+data.name+"</td><td>"+data.address+"</td><td>"+data.city_name+"</td><td>"+data.phone+"</td></tr>"
+                       })
+
+                       console.log(tableString)
+                       $('#shelterEmergencydatatable').html(`${tableString}`)
+              }});
+      }

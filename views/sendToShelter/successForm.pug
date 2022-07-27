@@ -1,0 +1,154 @@
+extends ../layout/layout
+
+block dashboardSidebar
+     li.nav-item
+            a(href='/account/dashboard')
+              p Dashboard
+     li.nav-item
+            a(href='/account/petsInShelter')
+              p Pets in Shelter
+     li.nav-item
+            a(href='/account/addShelter')
+              p Add Shelter
+     li.nav-item.active
+            a(href='/account/sendtoShelter')
+              p Send Pets to Shelter
+     li.nav-item
+            a(href='/account/emergency')
+              p Emergency
+     li.nav-item
+            a(href='/account/donation')
+              p Donate
+
+block content
+    .main-panel
+      .container(style="margin-top:0")
+          .page-inner
+            .page-header
+              h4.page-title Add Details
+              ul.breadcrumbs
+                li.nav-home
+                  a(href='forms.html#')
+                  i.flaticon-home
+            .row
+              .col-md-8
+                .card
+                  .card-header
+                    .card-title Fill Your Data
+                  .card-body.card-info.card-annoucement.card-round
+                          .text-center
+                            .card-opening Thank you,
+                            .card-desc
+                              | Congrats and best wishes for successfully uploading details
+                              p Our Nearby will contact you soon if we find your details legit
+                            .card-detail
+                              p#userId(style="display:none") #{session.user._id}
+                              label(for='successFormOwnerId' style="display:none") OwnerId
+                                input#successFormOwnerId.form-control(type='text' name='id' placeholder='Enter pet name' autocomplete="off" value=`${addmissionId}` style="display:none")
+                              .btn.btn-light.btn-rounded(onclick='getDetail()') View Detail
+                              #successFormDetail(style="display:none")
+                                .ownerName
+                                  p  Your Details :
+                                .ownerName
+                                  p#ownerName  name : Shreyansh
+                                .ownerName
+                                  p#ownerEmail  email : Shreyansh
+                                .ownerName
+                                  p#ownerPhone  phone : Shreyansh
+                                .ownerName
+                                  p Pet's Details :
+                                .ownerName
+                                  p#petCommonName gender : Shreyansh
+                                .ownerName
+                                  p#petGender gender : Shreyansh
+                                .ownerName
+                                  p#petType type : Shreyansh
+                                .ownerName
+                                  p#petVacci vaccination : Shreyansh
+                            form(action="/account/dashboard" method="GET")
+                              .card-detail.mt-3
+                                button.btn.btn-light.btn-rounded Back to Dashboard
+
+              .col-md-4
+                  ul.timeline
+                    li
+                      .timeline-badge
+                        i.flaticon-error
+                      .timeline-panel
+                        .timeline-heading
+                          h4.timeline-title Enter Owner's Details
+                          p
+                            small.text-muted
+                              i.flaticon-message
+                              |  First step
+                        .timeline-body
+                          p
+                            | It is important to fill owner's details and photo ID
+                    li.timeline-inverted
+                      .timeline-badge
+                        i.flaticon-alarm-1
+                      .timeline-panel
+                        .timeline-heading
+                          h4.timeline-title Enter Pet's Details
+                        .timeline-body
+                          p
+                            | It is important to fill pet's details with photo ID
+                    li
+                      .timeline-badge.danger
+                        i.flaticon-message
+                      .timeline-panel
+                        .timeline-heading
+                          h4.timeline-title Submitted Form
+                        .timeline-body
+                          p
+                            | After submission successfully , nearby shelter will contact you
+
+
+block pageScript
+  script(src='/assets/js/core/jquery.3.2.1.min.js')
+  script(src='/assets/js/core/popper.min.js')
+  script(src='/assets/js/core/bootstrap.min.js')
+  // jQuery UI
+  script(src='/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')
+  script(src='/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')
+  // jQuery Scrollbar
+  script(src='/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')
+  // Datatables
+  script(src='/assets/js/plugin/datatables/datatables.min.js')
+  // Atlantis JS
+  script(src='/assets/js/atlantis.min.js')
+  // SweetAlert
+  script(src='https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js')
+
+  // Atlantis DEMO methods, don't include it in your project!
+  script(src='/assets/js/setting-demo2.js')
+  script.
+      //== Class Initialization
+      $(document).ready(function() {
+
+
+
+       });
+
+       function getDetail(){
+        console.log("heelo")
+        const userid = $('#userId').html().trim()
+        console.log(userid);
+        let dataId = $('#successFormOwnerId').val();
+         $.ajax({
+                    type: "POST",
+                    url: "/account/getAdmissionData",
+                    data:{id:dataId},
+                    success: function(result) {
+                      console.log(result)
+                      $('#successFormDetail').css("display","block")
+                      $('#ownerName').html(`name : ${result.message.name}`)
+                      $('#ownerEmail').html(`email : ${result.message.email}`)
+                      $('#ownerPhone').html(`phone : ${result.message.phone}`)
+                      $('#petCommonName').html(`Common Name : ${result.message.common_name}`)
+                      $('#petGender').html(`gender : ${result.message.gender}`)
+                      $('#petType').html(`type : ${result.message.type}`)
+                      $('#petVacci').html(`vaccination : ${result.message.vaccination}`)
+              }});
+       }

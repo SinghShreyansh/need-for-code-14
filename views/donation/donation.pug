@@ -1,0 +1,106 @@
+extends ../layout/layout
+
+block dashboardSidebar
+     li.nav-item
+            a(href='/account/dashboard')
+              p Dashboard
+     li.nav-item
+            a(href='/account/petsInShelter')
+              p Pets in Shelter
+     li.nav-item
+            a(href='/account/addShelter')
+              p Add Shelter
+     li.nav-item
+            a(href='/account/sendtoShelter')
+              p Send Pets to Shelter
+     li.nav-item
+            a(href='/account/emergency')
+              p Emergency
+     li.nav-item.active
+            a(href='/account/donation')
+              p Donate
+
+block content
+    .main-panel
+      .container(style="margin-top:0")
+          .page-inner
+            .page-header
+              h4.page-title Donation
+              ul.breadcrumbs
+                li.nav-home
+                  a(href='forms.html#')
+                  i.flaticon-home
+
+            .row
+              .col-md-8
+                .card
+                  .card-header
+                    .card-title Donate for Homeless pets
+                  .card-body
+                          section.hero.is-link.is-fullheight
+                            .hero-body.is-centered
+                              .container
+                                .columns.is-centered.is-vcentered
+                                  .column.is-6
+                                    p.title.is-size-1 Donation Section
+                                    p.subtitle.is-size-4 You can donate minimum of RS.500
+                                    form
+                                      script(src='https://checkout.razorpay.com/v1/payment-button.js' data-payment_button_id='pl_JgWJGT2pturMv3' async='')
+
+                                    //- button#rzp-button1.button.is-link.is-light.is-medium
+                                    //-   | Pay
+                                  .colmn.is-5
+                                    figure.image
+                                      //
+                                        <img
+                                        src="https://images.unsplash.com/photo-1589998059171-988d887df646?
+                                        ixid=MnwxMjA3fDB8MHxwaG90by1wYWd1fHx8fGVufDB8fHx8&ixlib=rb-1.2.1"
+                                        style="border-radius: 10px"
+                                        alt=""
+                                        />
+                                      img(src='https://source.unsplash.com/500x300/?dog' alt='')
+
+
+block pageScript
+  script(src='/assets/js/core/jquery.3.2.1.min.js')
+  script(src='/assets/js/core/popper.min.js')
+  script(src='/assets/js/core/bootstrap.min.js')
+  // jQuery UI
+  script(src='/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')
+  script(src='/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')
+  // jQuery Scrollbar
+  script(src='/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')
+  // Datatables
+  script(src='/assets/js/plugin/datatables/datatables.min.js')
+  // Atlantis JS
+  script(src='/assets/js/atlantis.min.js')
+  // SweetAlert
+  script(src='https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js')
+  script(type='text/javascript' src='https://maps.google.com/maps/api/js?sensor=false')
+
+  // Atlantis DEMO methods, don't include it in your project!
+  script(src='/assets/js/setting-demo2.js')
+  script(src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js')
+  script(src='https://checkout.razorpay.com/v1/checkout.js')
+
+  script.
+   axios.post("/account/donation/order").then((info) => {
+   console.log(info);
+   var options = {
+   key: "rzp_test_Hi9G47G9H24Gfc",
+   name: "Test Transaction",
+   image:"https://d33wubrfki0168.cloudfront.net/c06c72079df0344c790062d36599987d92389a1b/a12e8/assets/images/site-logo-1.svg",
+   order_id: info.id,
+   callback_url: "/account/donation/is-order-complete",
+   theme: {
+   color: "#3399cc",
+   },
+   };
+   var rzp1 = new Razorpay(options);
+   document.getElementById("rzp-button1").onclick = function (e) {
+   rzp1.open();
+   e.preventDefault();
+   };
+   });
+
